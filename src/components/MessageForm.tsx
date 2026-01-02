@@ -8,6 +8,19 @@ const MessageForm = () => {
   const [isSending, setIsSending] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
+  const handleSend = async () => {
+    if (!nickname || !message) return;
+    setIsSending(true);
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    const clover = confetti.shapeFromText({ text: "🍀", scalar: 2 });
+    confetti({ shapes: [clover], particleCount: 30, spread: 70, origin: { y: 0.6 } });
+
+    setNickname("");
+    setMessage("");
+    setIsSending(false);
+    setShowPopup(true);
+  };
 
   return (
     <section className="soft-card rounded-3xl p-6 space-y-6 bg-white shadow-md border border-gray-50">
@@ -47,6 +60,7 @@ const MessageForm = () => {
       </div>
 
       <motion.button
+        onClick={handleSend}
         disabled={isSending}
         whileTap={{ scale: 0.95 }}
         className={`w-full py-4 rounded-xl font-bold text-sm outline-none shadow-none transition-all flex items-center justify-center [-webkit-tap-highlight-color:transparent]
