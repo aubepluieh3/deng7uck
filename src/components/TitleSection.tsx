@@ -1,6 +1,26 @@
 import { motion } from "framer-motion";
 
+const TARGET_DATE = "2026-01-16";
+
 const TitleSection = () => {
+  const calculateDDayInfo = (targetDate: string) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const target = new Date(targetDate);
+    target.setHours(0, 0, 0, 0);
+
+    const diffTime = target.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    return {
+      diffDays,
+      text: diffDays === 0 ? "D-Day" : `D-${diffDays}`,
+      isExpired: diffDays < 0
+    };
+  };
+
+  const { text, isExpired } = calculateDDayInfo(TARGET_DATE);
   return (
     <motion.section
       className="relative mb-16 px-6 pt-22 text-center overflow-visible"
@@ -40,14 +60,16 @@ const TitleSection = () => {
           </motion.p>
         </div>
 
-        <motion.div 
-          className="mt-8 inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-white/50 backdrop-blur-sm border border-lime-100 text-lime-700 text-xs font-bold shadow-sm"
-          initial={{ y: 10, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.7 }}
-        >
-          <span className="animate-pulse">🍀</span> D-15
-        </motion.div>
+        {!isExpired && (
+          <motion.div 
+            className="mt-8 inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-white/50 backdrop-blur-sm border border-lime-100 text-lime-700 text-xs font-bold shadow-sm"
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.7 }}
+          >
+            <span className="animate-pulse">🍀</span> {text}
+          </motion.div>
+        )}
       </div>
     </motion.section>
   );
