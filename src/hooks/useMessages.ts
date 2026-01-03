@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import type { Message } from "../types/message";
 
@@ -18,12 +13,11 @@ export const useMessages = () => {
       orderBy("createdAt", "desc")
     );
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const data: Message[] = snapshot.docs.map((doc) => ({
+    const unsubscribe = onSnapshot(q, (snap) => {
+      const data = snap.docs.map((doc) => ({
         id: doc.id,
         ...(doc.data() as Omit<Message, "id">),
       }));
-
       setMessages(data);
       setLoading(false);
     });
