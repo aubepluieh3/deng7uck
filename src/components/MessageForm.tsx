@@ -61,7 +61,7 @@ const MessageForm = () => {
         <textarea
           value={message}
           ref={messageInputRef}
-          maxLength={500}
+          maxLength={777}
           onChange={(e) => setMessage(e.target.value)}
           rows={4}
           className="w-full px-4 py-3 rounded-xl bg-gray-50 text-[16px] resize-none outline-none focus:ring-2 focus:ring-[#B6E388] transition-all [-webkit-tap-highlight-color:transparent]"
@@ -71,7 +71,7 @@ const MessageForm = () => {
                 Write a message of love and support!
             </p>
             <span className="text-[10px] text-gray-400">
-                {message.length} / 500
+                {message.length} / 777
             </span>
         </div>
       </div>
