@@ -6,6 +6,7 @@ import MessageCard from "../components/MessageCard";
 import { signOut } from "firebase/auth";
 import { auth } from "../lib/firebase";
 import { useAdmin } from "../hooks/useAdmin";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 type SortType = "latest" | "oldest";
 
@@ -24,7 +25,7 @@ const AllMessagesPage = () => {
   }, [messages, sort]);
 
   if (loading) {
-    return <div className="p-6 text-center text-sm text-gray-400">Loading…</div>;
+    return <LoadingSpinner />;
   }
 
   return (
