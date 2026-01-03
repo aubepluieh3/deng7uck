@@ -3,10 +3,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useMessages } from "../hooks/useMessages";
 import MessageCard from "../components/MessageCard";
+import { signOut } from "firebase/auth";
+import { auth } from "../lib/firebase";
+import { useAdmin } from "../hooks/useAdmin";
 
 type SortType = "latest" | "oldest";
 
 const AllMessagesPage = () => {
+  const { isAdmin } = useAdmin();
   const navigate = useNavigate();
   const { messages, loading } = useMessages();
   const [sort, setSort] = useState<SortType>("latest");
