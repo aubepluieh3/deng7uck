@@ -85,7 +85,7 @@ const MessageForm = () => {
             >
               <div className="text-4xl mb-4">🍀</div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">저장 완료!</h3>
-              <p className="text-gray-500 text-sm mb-6 leading-relaxed">지현님의 7주년을 축하하는 메시지가<br/>소중하게 저장되었습니다. 감사합니다.</p>
+              <p className="text-gray-500 text-sm mb-6 leading-relaxed">지현 선수의 7주년을 축하하는 메시지가<br/>소중하게 저장되었습니다. <br/>참여해 주셔서 감사합니다🤍</p>
               <button onClick={() => setShowPopup(false)} className="w-full py-3 bg-[#B6E388] text-lime-900 font-bold rounded-xl active:opacity-80 transition-all outline-none [-webkit-tap-highlight-color:transparent]">확인</button>
             </motion.div>
           </div>

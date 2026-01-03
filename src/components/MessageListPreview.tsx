@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import type { Message } from "../types/message";
 
-const MAX_PREVIEW = 7;
+const MAX_PREVIEW = 3;
 
 const MessageListPreview = ({ messages }: { messages: Message[] }) => {
   const navigate = useNavigate();
