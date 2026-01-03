@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../lib/firebase";
 
 const MessageForm = () => {
   const [nickname, setNickname] = useState("");
@@ -11,7 +13,12 @@ const MessageForm = () => {
   const handleSend = async () => {
     if (!nickname || !message) return;
     setIsSending(true);
-    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    await addDoc(collection(db, "messages"), {
+      nickname,
+      message,
+      createdAt: Date.now(),
+    });
 
     const clover = confetti.shapeFromText({ text: "🍀", scalar: 2 });
     confetti({ shapes: [clover], particleCount: 30, spread: 70, origin: { y: 0.6 } });
@@ -67,7 +74,7 @@ const MessageForm = () => {
           ${isSending ? "bg-gray-100 text-gray-400" : "bg-[#B6E388] text-lime-900"}
         `}
       >
-        {isSending ? "저장 중..." : "지현에게 보내기 🍀"}
+        {isSending ? "저장 중..." : "지현 선수에게 보내기 🍀"}
       </motion.button>
 
       <AnimatePresence>
