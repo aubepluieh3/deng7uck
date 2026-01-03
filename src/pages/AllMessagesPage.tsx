@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useMessages } from "../hooks/useMessages";
+import MessageCard from "../components/MessageCard";
 
 type SortType = "latest" | "oldest";
 
@@ -35,6 +36,14 @@ const AllMessagesPage = () => {
           <h1 className="font-title text-2xl text-gray-900">
             All Messages
           </h1>
+          {isAdmin && (
+            <button
+              onClick={() => signOut(auth)}
+              className="text-xs text-gray-400 hover:text-gray-600 transition"
+            >
+              Logout
+            </button>
+          )}
         </div>
 
         <div className="flex rounded-full bg-white shadow-sm border border-gray-100 p-1">
@@ -74,20 +83,8 @@ const AllMessagesPage = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="soft-card rounded-2xl p-4"
             >
-              <div className="flex justify-between items-start mb-1">
-                <p className="text-xs text-gray-500">
-                  {item.nickname}
-                </p>
-                <span className="text-[10px] text-gray-400">
-                  {new Date(item.createdAt).toLocaleDateString()}
-                </span>
-              </div>
-
-              <p className="text-sm text-gray-800 leading-relaxed">
-                {item.message}
-              </p>
+              <MessageCard message={item} />
             </motion.div>
           ))}
         </AnimatePresence>
