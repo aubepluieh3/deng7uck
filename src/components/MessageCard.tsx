@@ -3,9 +3,11 @@ import { db } from "../lib/firebase";
 import { useAdmin } from "../hooks/useAdmin";
 import type { Message } from "../types/message";
 
-const MessageCard = ({ message }: { message: Message }) => {
+const MessageCard = ({ message, index }: { message: Message; index: number }) => {
   const { isAdmin } = useAdmin();
-
+  const displayOrder = index + 1;
+  const isLuckySeven = displayOrder % 10 === 7;
+  const cloverIcon = isLuckySeven ? "🍀 " : "☘️ ";
   const handleDelete = async () => {
     if (!confirm("이 메시지를 삭제할까요?")) return;
     await deleteDoc(doc(db, "messages", message.id));
@@ -14,7 +16,14 @@ const MessageCard = ({ message }: { message: Message }) => {
   return (
     <div className="soft-card rounded-2xl p-4 transition-all hover:shadow-md">
       <div className="flex justify-between items-center mb-2">
-        <p className="text-xs text-gray-500 font-medium">{message.nickname}</p>
+        <div className="flex items-center gap-1.5">
+            <span className="text-xs">
+              {cloverIcon}
+            </span>
+            <p className={`text-xs font-bold ${isLuckySeven ? 'text-lime-700' : 'text-gray-600'}`}>
+              {message.nickname}
+            </p>
+          </div>
         <div className="flex items-center gap-2">
           <span className="text-[10px] text-gray-400">
             {new Date(message.createdAt).toLocaleDateString()}

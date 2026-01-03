@@ -88,7 +88,7 @@ const AllMessagesPage = () => {
           </div>
           <motion.section layout className="space-y-4">
             <AnimatePresence mode="popLayout">
-              {displayMessages.map((item) => (
+              {displayMessages.map((item, index) => (
                 <motion.div
                   key={item.id}
                   layout
@@ -97,7 +97,7 @@ const AllMessagesPage = () => {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                 >
-                  <MessageCard message={item} />
+                  <MessageCard message={item} index={index}/>
                 </motion.div>
               ))}
             </AnimatePresence>
