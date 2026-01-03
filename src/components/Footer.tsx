@@ -5,7 +5,7 @@ const Footer = () => {
   const INSTAGRAM_ID = "dengzip__"; 
 
   return (
-    <footer className="w-full py-20 flex flex-col items-center justify-center border-t border-gray-50">
+    <footer className="w-full py-20 flex flex-col items-center justify-center border-t border-gray-50 bg-[#F9FAFB]">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}

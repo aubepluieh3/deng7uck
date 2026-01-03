@@ -1,4 +1,3 @@
-import Footer from "../components/Footer";
 import MessageForm from "../components/MessageForm";
 import MessageListPreview from "../components/MessageListPreview";
 import TitleSection from "../components/TitleSection";
@@ -13,7 +12,6 @@ const HomePage = () => {
         {!loading && (
         <MessageListPreview messages={messages} />
       )}
-        <Footer />
       </main>
     );
   };
