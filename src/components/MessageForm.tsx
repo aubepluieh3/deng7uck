@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 import { addDoc, collection } from "firebase/firestore";
@@ -9,6 +9,14 @@ const MessageForm = () => {
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+
+  const messageInputRef = useRef<HTMLTextAreaElement>(null);
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      messageInputRef.current?.focus();
+    }
+  };
 
   const handleSend = async () => {
     if (!nickname || !message) return;
@@ -40,7 +48,8 @@ const MessageForm = () => {
         <input
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl bg-gray-50 text-sm outline-none focus:ring-2 focus:ring-[#B6E388] transition-all [-webkit-tap-highlight-color:transparent]"
+          onKeyDown={handleKeyDown}
+          className="w-full px-4 py-3 rounded-xl bg-gray-50 text-[16px] outline-none focus:ring-2 focus:ring-[#B6E388] transition-all [-webkit-tap-highlight-color:transparent]"
         />
       </div>
 
@@ -51,10 +60,11 @@ const MessageForm = () => {
         </div>
         <textarea
           value={message}
+          ref={messageInputRef}
           maxLength={500}
           onChange={(e) => setMessage(e.target.value)}
           rows={4}
-          className="w-full px-4 py-3 rounded-xl bg-gray-50 text-sm resize-none outline-none focus:ring-2 focus:ring-[#B6E388] transition-all [-webkit-tap-highlight-color:transparent]"
+          className="w-full px-4 py-3 rounded-xl bg-gray-50 text-[16px] resize-none outline-none focus:ring-2 focus:ring-[#B6E388] transition-all [-webkit-tap-highlight-color:transparent]"
         />
         <div className="flex justify-between px-1">
             <p className="text-[10px] text-gray-400 italic">
@@ -80,13 +90,25 @@ const MessageForm = () => {
       <AnimatePresence>
         {showPopup && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm">
-            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-3xl p-8 w-full max-w-sm text-center shadow-2xl"
-            >
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="
+                  bg-white
+                  rounded-2xl
+                  px-6 py-6
+                  w-full max-w-[320px]
+                  text-center
+                  shadow-2xl
+                "
+              >
               <div className="text-4xl mb-4">🍀</div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">저장 완료!</h3>
               <p className="text-gray-500 text-sm mb-6 leading-relaxed">지현 선수의 7주년을 축하하는 메시지가<br/>소중하게 저장되었습니다. <br/>참여해 주셔서 감사합니다🤍</p>
-              <button onClick={() => setShowPopup(false)} className="w-full py-3 bg-[#B6E388] text-lime-900 font-bold rounded-xl active:opacity-80 transition-all outline-none [-webkit-tap-highlight-color:transparent]">확인</button>
+              <button onClick={() => setShowPopup(false)} className="w-full py-2.5 bg-[#B6E388] text-lime-900 text-sm font-bold rounded-xl active:opacity-80 transition">
+                확인
+              </button>
             </motion.div>
           </div>
         )}
