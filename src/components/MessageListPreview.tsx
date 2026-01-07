@@ -28,13 +28,18 @@ const MessageListPreview = ({ messages }: { messages: Message[] }) => {
                 isLuckySeven ? 'border-lime-200 bg-lime-50/30' : 'border-transparent'
               }`}
             >
-              <div className="flex items-center gap-1.5 mb-1">
-                <span className="text-xs">
-                  {cloverIcon}
+              <div className="flex justify-between items-center mb-1">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs">
+                    {cloverIcon}
+                  </span>
+                  <p className={`text-xs font-bold ${isLuckySeven ? 'text-lime-700' : 'text-gray-500'}`}>
+                    {item.nickname}
+                  </p>
+                </div>
+                <span className="text-[10px] text-gray-400">
+                  {new Date(item.createdAt).toLocaleDateString()}
                 </span>
-                <p className={`text-xs font-bold ${isLuckySeven ? 'text-lime-700' : 'text-gray-500'}`}>
-                  {item.nickname}
-                </p>
               </div>
               <p className="text-sm text-gray-800 leading-relaxed">
                 {item.message}
