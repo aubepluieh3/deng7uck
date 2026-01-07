@@ -23,7 +23,7 @@ const MessageCard = ({ message, index }: { message: Message; index: number }) =>
             <p className={`text-xs font-bold ${isLuckySeven ? 'text-lime-700' : 'text-gray-600'}`}>
               {message.nickname}
             </p>
-          </div>
+        </div>
         <div className="flex items-center gap-2">
           <span className="text-[10px] text-gray-400">
             {new Date(message.createdAt).toLocaleDateString()}
