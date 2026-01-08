@@ -84,7 +84,7 @@ const MessageForm = () => {
           ${isSending ? "bg-gray-100 text-gray-400" : "bg-[#B6E388] text-lime-900"}
         `}
       >
-        {isSending ? "저장 중..." : "지현 선수에게 보내기 🍀"}
+        {isSending ? "저장 중..." : "지현 선수에게 보내기🍀"}
       </motion.button>
 
       <AnimatePresence>

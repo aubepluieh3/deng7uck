@@ -1,4 +1,13 @@
 @import "tailwindcss";
+@font-face {
+    font-family: 'Cafe24SsurroundAir';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+:root {
+  font-family: 'Cafe24SsurroundAir', sans-serif;
+}
 
 @layer utilities {
   .soft-card {
@@ -18,7 +27,6 @@
       inset 0 4px 8px rgba(0, 0, 0, 0.06);
   }
   .font-title {
-    font-family: "Baloo 2", cursive;
+    font-family: "Baloo 2", cursive !important;
   }
 }
-
