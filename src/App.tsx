@@ -3,9 +3,11 @@ import HomePage from "./pages/HomePage";
 import AllMessagesPage from "./pages/AllMessagesPage";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ui/ScrollToTop";
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/admin" element={<AdminLoginPage />} />
         <Route path="/" element={<HomePage />} />
