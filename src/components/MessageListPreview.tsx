@@ -1,10 +1,14 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import type { Message } from "../types/message";
-
 const MAX_PREVIEW = 3;
 
-const MessageListPreview = ({ messages }: { messages: Message[] }) => {
+interface PreviewProps {
+  messages: Message[];
+  isMember: boolean; 
+}
+
+const MessageListPreview = ({ messages, isMember }: PreviewProps) => {
   const navigate = useNavigate();
   const previewMessages = messages.slice(0, MAX_PREVIEW);
 
@@ -15,6 +19,7 @@ const MessageListPreview = ({ messages }: { messages: Message[] }) => {
           const displayOrder = index + 1; 
           const isLuckySeven = displayOrder % 10 === 7;
           const cloverIcon = isLuckySeven ? "🍀" : "☘️";
+          const maskedMessage = item.message.replace(/[^\s]/g, "●");
 
           return (
             <motion.div
@@ -41,8 +46,14 @@ const MessageListPreview = ({ messages }: { messages: Message[] }) => {
                   {new Date(item.createdAt).toLocaleDateString()}
                 </span>
               </div>
-              <p className="text-sm text-gray-800 leading-relaxed">
-                {item.message}
+
+              <p className={`text-xs leading-relaxed break-all transition-all duration-500
+                ${!isMember 
+                  ? 'blur-[4px] opacity-40 select-none pointer-events-none text-gray-400 font-mono' 
+                  : 'text-gray-800'
+                }
+              `}>
+                {isMember ? item.message : maskedMessage}
               </p>
             </motion.div>
           );

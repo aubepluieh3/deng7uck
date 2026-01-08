@@ -12,9 +12,9 @@ type SortType = "latest" | "oldest";
 const MESSAGES_PER_PAGE = 7;
 
 const AllMessagesPage = () => {
-  const { isAdmin } = useAdmin();
+  const { isMember, isAdmin, loading: adminLoading} = useAdmin();
   const navigate = useNavigate();
-  const { messages, loading } = useMessages();
+  const { messages, loading: messagesLoading } = useMessages();
   const [sort, setSort] = useState<SortType>("latest");
   const [visibleCount, setVisibleCount] = useState(MESSAGES_PER_PAGE);
   const sortedMessages = useMemo(() => {
@@ -28,7 +28,7 @@ const AllMessagesPage = () => {
     return sortedMessages.slice(0, visibleCount);
   }, [sortedMessages, visibleCount]);
 
-  if (loading) {
+  if (messagesLoading || adminLoading) {
     return <LoadingSpinner />;
   }
 
@@ -37,7 +37,7 @@ const AllMessagesPage = () => {
           <div className="mb-10 flex flex-col items-center gap-6">
             <div className="relative w-full flex items-center justify-center">
               <button
-                onClick={() => navigate(-1)}
+                onClick={() => navigate("/")}
                 className="absolute left-0 group flex items-center gap-1 text-sm text-gray-400 hover:text-gray-800 transition"
               >
                 <span className="transition-transform group-hover:-translate-x-1">←</span>
@@ -46,7 +46,7 @@ const AllMessagesPage = () => {
               <h1 className="font-title text-2xl text-gray-900 tracking-tight">
                 All Messages
               </h1>
-              {isAdmin && (
+              {isMember && (
                 <button
                   onClick={() => signOut(auth)}
                   className="absolute right-0 text-[10px] text-gray-300 hover:text-red-400 transition underline underline-offset-4"
@@ -97,7 +97,12 @@ const AllMessagesPage = () => {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                 >
-                  <MessageCard message={item} index={index}/>
+                  <MessageCard 
+                    message={item}
+                    index={index}
+                    isMember={isMember}
+                    isAdmin={isAdmin}
+                    />
                 </motion.div>
               ))}
             </AnimatePresence>
