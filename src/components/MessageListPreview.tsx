@@ -66,7 +66,7 @@ const MessageListPreview = ({ messages, isMember }: PreviewProps) => {
           onClick={() => navigate("/messages")}
           className="w-full py-3 rounded-xl bg-white soft-button text-sm font-semibold text-gray-700 shadow-sm border border-gray-100"
         >
-          전체 메시지 보기 ({messages.length})
+          전체 메시지 보기
         </motion.button>
       )}
     </section>
