@@ -12,7 +12,6 @@ const HomePage = () => {
     return (
       <main className="min-h-screen bg-[#F9FAFB] px-6 py-10 space-y-14">
         <TitleSection />
-        <MessageForm />
         {isLoading ? (
         <div className="relative py-20"> 
             <LoadingSpinner /> 
